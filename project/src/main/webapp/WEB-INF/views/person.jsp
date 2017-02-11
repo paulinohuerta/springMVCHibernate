@@ -4,7 +4,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <html>
 <head>
-	<title>Person Page</title>
+	<title><spring:message code="page.personform.title"/></title>
 	<style type="text/css">
 		.tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;}
 		.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#fff;}
@@ -14,13 +14,15 @@
 </head>
 <body>
 <h1>
-	Add a Person
+    <spring:message code="page.person.head"/>
 </h1>
 
 <c:url var="addAction" value="/person/add" ></c:url>
 
 <form:form action="${addAction}" commandName="person">
-<table>
+  <fieldset>
+       <legend><spring:message code="form.name"/></legend>
+       <table>
 	<c:if test="${!empty person.name}">
 	<tr>
 		<td>
@@ -36,37 +38,33 @@
 	</c:if>
 	<tr>
 		<td>
-			<form:label path="name">
-				<spring:message text="Name"/>
-			</form:label>
-		</td>
-		<td>
-			<form:input path="name" />
-		</td> 
-	</tr>
-	<tr>
-		<td>
-			<form:label path="country">
-				<spring:message text="Country"/>
-			</form:label>
-		</td>
-		<td>
-			<form:input path="country" />
+                        <label for="name"><spring:message code="label.personName" text="default text" />:</label>
+                        <form:input id="name" path="name" cssErrorClass="error"/>
+                        <form:errors path="name" cssClass="error"/>
 		</td>
 	</tr>
 	<tr>
 		<td colspan="2">
-			<c:if test="${!empty person.name}">
-				<input type="submit"
-					value="<spring:message text="Edit Person"/>" />
-			</c:if>
-			<c:if test="${empty person.name}">
-				<input type="submit"
-					value="<spring:message text="Add Person"/>" />
-			</c:if>
+                 <label for="country"><spring:message code="label.pais" text="default text" />: </label>
+                 <form:input id="country" path="country" cssErrorClass="error"/>
+                 <form:errors path="country" cssClass="error"/>
+                 <p>
+		 <input id="reset" type="reset" tabindex="4" 
+                    value="<spring:message code="button.reset"/>"/>
+	
+                 <c:if test="${!empty person.name}">
+				<input id="submitE" type="submit" tabindex="5"
+				 value="<spring:message code="button.edit"/>" />
+		 </c:if>
+		 <c:if test="${empty person.name}">
+				<input id="submitA" type="submit" tabindex="5"
+				value="<spring:message code="button.add"/>" />
+		 </c:if>
+                 </p>
 		</td>
 	</tr>
 </table>	
+</fieldset>
 </form:form>
 <br>
 <h3>Persons List</h3>
